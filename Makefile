@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/04/09 06:26:00 by rabougue         ###   ########.fr        #
+#    Updated: 2017/04/10 00:48:18 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ FLAG = -Weverything
 #FLAG = -Wall -Wextra -Werror
 LFT = ./libft/libft.a
 SRCS =	./source/main.c\
-		./source/built_in.c
+		./source/built_in.c\
+		./source/built_in_cd.c\
 
 OBJS = $(SRCS:.c=.o)
 

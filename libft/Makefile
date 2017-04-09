@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/04/09 07:54:47 by rabougue         ###   ########.fr        #
+#    Updated: 2017/04/10 00:16:19 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_dprintf/sources/percent_o.c\
 	  ./ft_dprintf/sources/tools.c\
 	  ./ft_print_2d_tab.c\
+	  ./ft_count_2d_tab.c\
+	  ./ft_2d_tab_free.c\
 	  ./ft_putendl_fd.c\
 	  ./ft_putchar_fd.c\
 	  ./get_next_line.c\
@@ -36,6 +38,7 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_hexa_ltoa.c\
 	  ./ft_ltoa_base.c\
 	  ./ft_putstr_fd.c\
+	  ./ft_strsplit.c\
 	  ./ft_memalloc.c\
 	  ./ft_strjoin.c\
 	  ./ft_strncmp.c\

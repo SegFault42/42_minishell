@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tab_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/09 05:08:03 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 00:53:38 by rabougue         ###   ########.fr       */
+/*   Created: 2016/04/11 19:28:43 by rabougue          #+#    #+#             */
+/*   Updated: 2017/04/06 20:41:53 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "./includes/libft.h"
 
-int	main(int argc, char **environ)
+void	ft_2d_tab_free(char **tab)
 {
-	char	*line;
+	int	i;
 
-	line = NULL;
-	if (argc != 1)
+	i = 0;
+	while (tab[i])
 	{
-		ft_dprintf(2, "Too many arguments");
-		return (EXIT_FAILURE);
+		free(tab[i]);
+		++i;
 	}
-	else
-		while (0xDEADBEEF)
-		{
-			ft_dprintf(1, CYAN"$> "END);
-			get_next_line(STDERR_FILENO, &line);
-			if (line != NULL)
-				if (built_in(line, environ) == EXIT_SUCCESS)
-					break ;
-			ft_strdel(&line);
-		}
-	return (0);
+	free(tab);
 }
