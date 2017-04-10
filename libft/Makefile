@@ -6,7 +6,7 @@
 #    By: rabougue <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 19:16:51 by rabougue          #+#    #+#              #
-#    Updated: 2017/04/10 00:16:19 by rabougue         ###   ########.fr        #
+#    Updated: 2017/04/10 04:58:10 by rabougue         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_memalloc.c\
 	  ./ft_strjoin.c\
 	  ./ft_strncmp.c\
+	  ./ft_strtrim.c\
 	  ./ft_strcpy.c\
 	  ./ft_memset.c\
 	  ./ft_strcat.c\
@@ -53,6 +54,7 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_strsub.c\
 	  ./ft_strnew.c\
 	  ./ft_ultoa.c\
+	  ./ft_debug.c\
 	  ./ft_itoa.c\
 	  ./ft_ltoa.c\
 
