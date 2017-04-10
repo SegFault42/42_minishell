@@ -24,7 +24,7 @@ static void	built_in_echo(char *line)
 	ft_dprintf(1, "%s\n", &line[i]);
 }
 
-static void	built_in_cd(char *line, t_env *env)
+static void	built_in_cd(char *line, t_ctrl *ctrl)
 {
 	char	new_dir[ft_strlen(line)];
 	char	*ptr;
@@ -34,27 +34,27 @@ static void	built_in_cd(char *line, t_env *env)
 		return ;
 	ft_memset(&new_dir, 0, ft_strlen(line));
 	ft_strcpy(new_dir, ptr);
-	change_path(new_dir, env);
+	change_path(new_dir, ctrl);
 }
 
-bool	built_in(char *line, t_env *env)
+bool	built_in(char *line, t_ctrl *ctrl)
 {
 	char	*trim;
 
 	trim = ft_strtrim(line);
-	if (ft_strlen(trim) == 0)
-		return (EXIT_FAILURE);
 	if (ft_strncmp("exit", trim, 4) == 0)
 	{
 		ft_strdel(&trim);
 		return(EXIT_SUCCESS);
 	}
+	else if (ft_strcmp(trim, "env") == 0)
+		system("/usr/bin/env");
 	else if (ft_strncmp("echo", trim, 4) == 0)
 		built_in_echo(trim);
 	else if (ft_strncmp("cd", trim, 2) == 0)
-		built_in_cd(trim, env);
+		built_in_cd(trim, ctrl);
 	else if (ft_strcmp("env", trim) == 0)
-		ft_print_2d_tab(env->environnement);
+		print_lst(ctrl);
 	else if (ft_strcmp(trim, "pwd") == 0)
 		system("pwd");
 	else

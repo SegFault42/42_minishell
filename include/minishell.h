@@ -14,29 +14,38 @@
 # define MINISHELL_H
 
 # include "../libft/includes/libft.h"
+# include "sys/stat.h"
 
 # define PATH_LENGHT 1024
 
 # define HOME	0
 # define PATH	1
 
-typedef struct	s_env
+typedef struct			s_environ
 {
-	char		**environnement;
-}				t_env;
+	char				*env;
+	struct s_environ	*next;
+}						t_environ;
+
+typedef struct			s_ctrl
+{
+	t_environ			*first;
+}						t_ctrl;
 
 /*
 **===================================built_in.c================================
 */
-bool				built_in(char *line, t_env *env);
+bool				built_in(char *line, t_ctrl *ctrl);
 /*
 **==============================built_in_get_path.c============================
 */
 char				*get_path(char *line);
-void				change_path(char *new_dir, t_env *env);
+void				change_path(char *new_dir, t_ctrl *ctrl);
 /*
 **===================================env.c=====================================
 */
-void	create_env(t_env *env);
+void	create_env(t_ctrl *ctrl);
+void	add_tail(t_ctrl *ctrl, char *str);
+void	print_lst(t_ctrl *ctrl);
 
 #endif

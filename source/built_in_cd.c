@@ -31,20 +31,51 @@ static void	absolute_path(char *new_dir)
 		ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, new_dir);
 }
 
-void	home_path(char *path)
+static void	home_path(t_ctrl *ctrl)
 {
-	if (chdir(path) < 0)
-		ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, path);
+	t_environ	*tmp;
+
+	tmp = ctrl->first;
+	while (ft_strncmp(tmp->env, "HOME", 4) != 0)
+	{
+		ft_dprintf(1, YELLOW"%s\n"END, tmp->env);
+		if (tmp->next == NULL)
+		{
+			ft_dprintf(2, RED"HOME not set\n"END);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	if (chdir(&tmp->env[5]) < 0)
+		ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, tmp->env);
 }
 
-void	change_path(char *new_dir, t_env *env)
+void	change_path(char *new_dir, t_ctrl *ctrl)
 {
-	if (ft_strlen(new_dir) == 0)
-		home_path(&env->environnement[HOME][5]);
-	if (new_dir[0] == '/')
+	size_t		len_new_dir;
+	static char	current_dir[PATH_LENGHT] = {0};
+
+	len_new_dir = ft_strlen(new_dir);
+	if (len_new_dir == 0 || (len_new_dir == 1 && new_dir[0] == '~'))
+	{
+		getcwd(current_dir, PATH_LENGHT);
+		home_path(ctrl);
+	}
+	else if (new_dir[0] == '/')
+	{
+		getcwd(current_dir, PATH_LENGHT);
 		absolute_path(new_dir);
+	}
+	else if (len_new_dir == 1 && new_dir[0] == '-')
+	{
+		if (chdir(current_dir) < 0)
+			ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, current_dir);
+	}
 	else
+	{
+		getcwd(current_dir, PATH_LENGHT);
 		relative_path(new_dir);
+	}
 }
 
 char	*get_path(char *line)

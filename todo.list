@@ -1,5 +1,10 @@
-built-in :
+bareme :
 
-exit	✅
-echo	✅
-cd
+- Les builtins		OK
+- Gestion de l'env	EN COURS
+
+
+
+Probleme :
+
+cd sur un lien Ex : cd /tmp

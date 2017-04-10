@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/10 03:41:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 04:15:59 by rabougue         ###   ########.fr       */
+/*   Created: 2017/03/02 15:14:04 by rabougue          #+#    #+#             */
+/*   Updated: 2017/04/06 19:17:51 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "./includes/libft.h"
 
-void	create_env(t_ctrl *ctrl)
+void	ft_critical_error(uint8_t error)
 {
-	add_tail(ctrl, "PATH=/usr/bin:/bin:/usr/sbin:/sbin");
-	add_tail(ctrl, "HOME=/Users/rabougue");
+	if (error == MALLOC_ERROR)
+		ft_dprintf(STDERR_FILENO, RED"Memory allocation failure !\n"END);
+	else
+		ft_dprintf(STDERR_FILENO, RED"Unknown error !\n"END);
+	exit(EXIT_FAILURE);
 }
-
