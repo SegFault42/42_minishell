@@ -84,7 +84,6 @@ char	*get_path(char *line)
 	char	**split;
 
 	i = 0;
-	split = NULL;
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		++i;
 	while (line[i] == ' ' || line[i] == '\t')

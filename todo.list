@@ -5,6 +5,11 @@ bareme :
 
 
 
+TODO:
+
+gerer setenv si la variable existe deja
+
 Probleme :
 
 cd sur un lien Ex : cd /tmp
+

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-t_environ	*create_maillon(void)
+static t_environ	*create_maillon(void)
 {
 	t_environ	*new;
 

@@ -37,6 +37,25 @@ static void	built_in_cd(char *line, t_ctrl *ctrl)
 	change_path(new_dir, ctrl);
 }
 
+static void	execute(t_ctrl *ctrl)
+{
+	pid_t	father;
+	char	*env[] = {"/bin/csh", NULL};
+
+	father = fork();
+	if (father > 0)
+	{
+		wait(NULL);
+		kill(father, SIGTERM);
+	}
+	else if (father == 0)
+	{
+		execve(env[0], env, NULL);
+	}
+	else
+		ft_dprintf(2, RED"Execution failed !\n"END);
+}
+
 bool	built_in(char *line, t_ctrl *ctrl)
 {
 	char	*trim;
@@ -47,14 +66,14 @@ bool	built_in(char *line, t_ctrl *ctrl)
 		ft_strdel(&trim);
 		return(EXIT_SUCCESS);
 	}
-	else if (ft_strcmp(trim, "env") == 0)
-		system("/usr/bin/env");
 	else if (ft_strncmp("echo", trim, 4) == 0)
 		built_in_echo(trim);
 	else if (ft_strncmp("cd", trim, 2) == 0)
 		built_in_cd(trim, ctrl);
 	else if (ft_strcmp("env", trim) == 0)
 		print_lst(ctrl);
+	else if (ft_strncmp("setenv", trim, 4) == 0)
+		built_in_setenv(trim, ctrl);
 	else if (ft_strcmp(trim, "pwd") == 0)
 		system("pwd");
 	else

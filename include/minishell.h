@@ -14,7 +14,8 @@
 # define MINISHELL_H
 
 # include "../libft/includes/libft.h"
-# include "sys/stat.h"
+# include <sys/stat.h>
+# include <signal.h>
 
 # define PATH_LENGHT 1024
 
@@ -47,5 +48,6 @@ void				change_path(char *new_dir, t_ctrl *ctrl);
 void	create_env(t_ctrl *ctrl);
 void	add_tail(t_ctrl *ctrl, char *str);
 void	print_lst(t_ctrl *ctrl);
+void	built_in_setenv(char *cmd, t_ctrl *ctrl);
 
 #endif

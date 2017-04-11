@@ -31,6 +31,8 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_critical_error.c\
 	  ./ft_print_2d_tab.c\
 	  ./ft_count_2d_tab.c\
+	  ./ft_str_isalpha.c\
+	  ./ft_str_isspace.c\
 	  ./ft_2d_tab_free.c\
 	  ./ft_putendl_fd.c\
 	  ./ft_putchar_fd.c\
