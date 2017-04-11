@@ -17,9 +17,9 @@ static void	built_in_echo(char *line)
 	size_t	i;
 
 	i = 0;
-	while (line[i] != ' ')
+	while (line[i] != ' ' || line[i] == '\t')
 		++i;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		++i;
 	ft_dprintf(1, "%s\n", &line[i]);
 }

@@ -110,7 +110,7 @@ void				ft_print_2d_tab(char **tab);
 bool				check_int_overflow(long nb);
 int					ft_count_2d_tab(char **tab);
 int					ft_count_char(char *str, char c);
-int					ft_strccmp(const char *s1, const char *s2, char c);
+int					ft_strccmp(char *s1, char *s2, char c);
 size_t				ft_strclen(const char *s, char c);
 char				*ft_strcdup(const char *s1, char c);
 char				*ft_strccat(char *s1, const char *s2, char c);

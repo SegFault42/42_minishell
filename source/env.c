@@ -18,6 +18,30 @@ void	create_env(t_ctrl *ctrl)
 	add_tail(ctrl, "HOME=/Users/rabougue");
 }
 
+static bool	replace_if_var_exist(t_ctrl *ctrl, char *key, char *var)
+{
+	size_t		i;
+	size_t		len_key;
+	size_t		len_tmp;
+	t_environ	*tmp;
+
+	i = 0;
+	len_key = ft_strlen(key);
+	tmp = ctrl->first;
+	while (tmp)
+	{
+		len_tmp = ft_strclen(tmp->env, '=');
+		if (len_tmp == len_key && ft_strncmp(tmp->env, key, len_key) == 0)
+		{
+			ft_strdel(&tmp->env);
+			tmp->env = ft_strdup(var);
+			return (true);
+		}
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
 void	built_in_setenv(char *cmd, t_ctrl *ctrl)
 {
 	char	**split;
@@ -34,7 +58,10 @@ void	built_in_setenv(char *cmd, t_ctrl *ctrl)
 	{
 		split = ft_strsplit(&cmd[i], '=');
 		if (ft_count_2d_tab(split) == 2 && ft_str_isalpha(split[0]) == true)
-			add_tail(ctrl, &cmd[i]);
+		{
+			if (replace_if_var_exist(ctrl, split[0], &cmd[i]) == false)
+				add_tail(ctrl, &cmd[i]);
+		}
 		else
 			ft_dprintf(2, RED"Bad formmating. Usage : setenv foo=bar\n"END);
 		ft_2d_tab_free(split);

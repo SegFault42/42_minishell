@@ -43,6 +43,8 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_putstr_fd.c\
 	  ./ft_strsplit.c\
 	  ./ft_memalloc.c\
+	  ./ft_strccmp.c\
+	  ./ft_strclen.c\
 	  ./ft_strjoin.c\
 	  ./ft_strncmp.c\
 	  ./ft_strtrim.c\
