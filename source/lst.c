@@ -22,6 +22,44 @@ static t_environ	*create_maillon(void)
 	return (new);
 }
 
+void	destroy_node(t_ctrl *ctrl, size_t i)
+{
+	t_environ	*tmp_rm;
+	t_ctrl		tmp_save;
+	size_t		j;
+
+	j = 1;
+	tmp_rm = ctrl->first;
+	if (i > 1)
+	{
+		while (j < i)
+		{
+			if (j == (i -1))
+				tmp_save.first = tmp_rm;
+			tmp_rm = tmp_rm->next;;
+			++j;
+		}
+		tmp_save.first->next = tmp_rm->next;
+		ft_strdel(&tmp_rm->env);
+		free(tmp_rm);
+	}
+	else
+	{
+		if (ctrl->first->next != NULL)
+		{
+			ctrl->first = ctrl->first->next;
+			ft_strdel(&tmp_rm->env);
+			free(tmp_rm);
+		}
+		else
+		{
+			ft_strdel(&ctrl->first->env);
+			free(ctrl->first);
+			ctrl->first = NULL;
+		}
+	}
+}
+
 void	add_tail(t_ctrl *ctrl, char *str)
 {
 	t_environ	*new;

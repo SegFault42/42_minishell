@@ -23,8 +23,11 @@ void	ft_print_2d_tab(char **tab)
 	{
 		while (tab[i])
 		{
-			ft_dprintf(1, "%s\n", tab[i]);
+			ft_dprintf(1, "%s", tab[i]);
 			++i;
+			if (tab[i] != NULL)
+				ft_putchar_fd(' ', 1);
 		}
+		ft_putchar_fd('\n', 1);
 	}
 }

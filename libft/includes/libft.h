@@ -122,5 +122,6 @@ void				ft_set_2d_tab(char **tab, int size);
 void				ft_strxcat(char *dest, char *src, int x);
 bool				ft_str_isalpha(char *str);
 bool				ft_str_isspace(char *str);
+char				**ft_strsplit_blank(char const *s);
 
 #endif

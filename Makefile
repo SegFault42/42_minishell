@@ -59,4 +59,7 @@ fclean:
 	@rm -f $(NAME) $(OBJS)
 	@make -s fclean -C ./libft/
 
+norme:
+	norminette | grep Error
+
 re: fclean all

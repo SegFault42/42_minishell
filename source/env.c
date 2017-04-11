@@ -12,10 +12,55 @@
 
 #include "../include/minishell.h"
 
-void	create_env(t_ctrl *ctrl)
+void	create_env(t_ctrl *ctrl, char **environ)
 {
-	add_tail(ctrl, "PATH=/usr/bin:/bin:/usr/sbin:/sbin");
-	add_tail(ctrl, "HOME=/Users/rabougue");
+	int	i;
+
+	i = 0;
+	if (environ[0] != NULL)
+	{
+		while (environ[i])
+		{
+			add_tail(ctrl, environ[i]);
+			++i;
+		}
+	}
+	else
+	{
+		add_tail(ctrl, "PATH=/usr/bin:/bin:/usr/sbin:/sbin");
+		add_tail(ctrl, "HOME=/Users/rabougue");
+	}
+}
+
+void	built_in_unsetenv(char *cmd, t_ctrl *ctrl)
+{
+	t_environ	*tmp;
+	char		**split;
+	char		**split_env;
+	size_t		i;
+
+	i = 1;
+	tmp = ctrl->first;
+	split = ft_strsplit_blank(cmd);
+	if (ft_count_2d_tab(split) > 1)
+	{
+		while (tmp)
+		{
+			split_env = ft_strsplit(tmp->env, '=');
+			if (ft_strcmp(split[1], split_env[0]) == 0)
+			{
+				destroy_node(ctrl, i);
+				ft_2d_tab_free(split_env);
+				break ;
+			}
+			ft_2d_tab_free(split_env);
+			tmp = tmp->next;
+			++i;
+			if (tmp == NULL)
+				ft_dprintf(1, RED"Environement variable not exist\n"END);
+		}
+	}
+	ft_2d_tab_free(split);
 }
 
 static bool	replace_if_var_exist(t_ctrl *ctrl, char *key, char *var)

@@ -32,14 +32,14 @@ static void	quit(t_ctrl *ctrl)
 	tmp = NULL;
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **environ)
 {
 	char	*line;
 	t_ctrl	ctrl;
 
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
-	create_env(&ctrl);
+	create_env(&ctrl, environ);
 	if (argc != 1)
 	{
 		ft_dprintf(2, "Too many arguments");

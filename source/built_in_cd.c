@@ -36,9 +36,13 @@ static void	home_path(t_ctrl *ctrl)
 	t_environ	*tmp;
 
 	tmp = ctrl->first;
+	if (tmp == NULL)
+	{
+		ft_dprintf(2, RED"HOME not set\n"END);
+		return ;
+	}
 	while (ft_strncmp(tmp->env, "HOME", 4) != 0)
 	{
-		ft_dprintf(1, YELLOW"%s\n"END, tmp->env);
 		if (tmp->next == NULL)
 		{
 			ft_dprintf(2, RED"HOME not set\n"END);

@@ -29,6 +29,7 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_dprintf/sources/percent_o.c\
 	  ./ft_dprintf/sources/tools.c\
 	  ./ft_critical_error.c\
+	  ./ft_strsplit_blank.c\
 	  ./ft_print_2d_tab.c\
 	  ./ft_count_2d_tab.c\
 	  ./ft_str_isalpha.c\

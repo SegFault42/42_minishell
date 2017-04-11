@@ -45,9 +45,11 @@ void				change_path(char *new_dir, t_ctrl *ctrl);
 /*
 **===================================env.c=====================================
 */
-void	create_env(t_ctrl *ctrl);
 void	add_tail(t_ctrl *ctrl, char *str);
 void	print_lst(t_ctrl *ctrl);
 void	built_in_setenv(char *cmd, t_ctrl *ctrl);
+void	built_in_unsetenv(char *cmd, t_ctrl *ctrl);
+void	destroy_node(t_ctrl *ctrl, size_t i);
+void	create_env(t_ctrl *ctrl, char **envrion);
 
 #endif

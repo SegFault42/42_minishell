@@ -15,13 +15,13 @@
 static void	built_in_echo(char *line)
 {
 	size_t	i;
+	char	**split;
 
 	i = 0;
-	while (line[i] != ' ' || line[i] == '\t')
-		++i;
-	while (line[i] == ' ' || line[i] == '\t')
-		++i;
-	ft_dprintf(1, "%s\n", &line[i]);
+	split = ft_strsplit_blank(line);
+	if (ft_count_2d_tab(split) > 1)
+		ft_print_2d_tab(&split[1]);
+	ft_2d_tab_free(split);
 }
 
 static void	built_in_cd(char *line, t_ctrl *ctrl)
@@ -59,25 +59,36 @@ static void	execute(t_ctrl *ctrl)
 bool	built_in(char *line, t_ctrl *ctrl)
 {
 	char	*trim;
+	char	**split;
 
 	trim = ft_strtrim(line);
-	if (ft_strncmp("exit", trim, 4) == 0)
+	if (trim[0] == '\0')
 	{
 		ft_strdel(&trim);
-		return(EXIT_SUCCESS);
+		return (EXIT_FAILURE);
 	}
-	else if (ft_strncmp("echo", trim, 4) == 0)
+	split = ft_strsplit_blank(trim);
+	if (ft_strcmp("exit", split[0]) == 0)
+	{
+		ft_strdel(&trim);
+		ft_2d_tab_free(split);
+		return (EXIT_SUCCESS);
+	}
+	else if (ft_strcmp("echo", split[0]) == 0)
 		built_in_echo(trim);
-	else if (ft_strncmp("cd", trim, 2) == 0)
+	else if (ft_strcmp("cd", split[0]) == 0)
 		built_in_cd(trim, ctrl);
-	else if (ft_strcmp("env", trim) == 0)
+	else if (ft_strcmp("env", split[0]) == 0)
 		print_lst(ctrl);
-	else if (ft_strncmp("setenv", trim, 4) == 0)
+	else if (ft_strcmp("setenv", split[0]) == 0)
 		built_in_setenv(trim, ctrl);
-	else if (ft_strcmp(trim, "pwd") == 0)
+	else if (ft_strcmp("unsetenv", split[0]) == 0)
+		built_in_unsetenv(trim, ctrl);
+	else if (ft_strcmp("pwd", split[0]) == 0)
 		system("pwd");
 	else
 		ft_dprintf(2, RED"%s : Command not found!\n"END, trim);
+	ft_2d_tab_free(split);
 	ft_strdel(&trim);
 	return (EXIT_FAILURE);
 }
