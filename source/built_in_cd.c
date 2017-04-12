@@ -58,27 +58,36 @@ void	change_path(char *new_dir, t_ctrl *ctrl)
 {
 	size_t		len_new_dir;
 	static char	current_dir[PATH_LENGHT] = {0};
+	static char	tmp[PATH_LENGHT] = {0};
+	static char	old_dir[PATH_LENGHT] = {0};
 
+	getcwd(old_dir, PATH_LENGHT);
 	len_new_dir = ft_strlen(new_dir);
+	if (tmp[0] == '\0')
+		getcwd(tmp, PATH_LENGHT);
 	if (len_new_dir == 0 || (len_new_dir == 1 && new_dir[0] == '~'))
 	{
 		getcwd(current_dir, PATH_LENGHT);
 		home_path(ctrl);
+		ft_strcpy(tmp, old_dir);
 	}
 	else if (new_dir[0] == '/')
 	{
 		getcwd(current_dir, PATH_LENGHT);
 		absolute_path(new_dir);
+		ft_strcpy(tmp, old_dir);
 	}
 	else if (len_new_dir == 1 && new_dir[0] == '-')
 	{
-		if (chdir(current_dir) < 0)
-			ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, current_dir);
+		if (chdir(tmp) < 0)
+			ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, tmp);
+		ft_strcpy(tmp, old_dir);
 	}
 	else
 	{
 		getcwd(current_dir, PATH_LENGHT);
 		relative_path(new_dir);
+		ft_strcpy(tmp, old_dir);
 	}
 }
 

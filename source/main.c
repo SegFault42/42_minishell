@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **environ)
 	char	*line;
 	t_ctrl	ctrl;
 	char	**env;
+	char	dir[PATH_LENGHT];
 
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
@@ -51,8 +52,9 @@ int	main(int argc, char **argv, char **environ)
 	{
 		while (0xDEADBEEF)
 		{
+			getcwd(dir, PATH_LENGHT);
 			env = lst_to_2d_tab(&ctrl, environ);
-			ft_dprintf(1, CYAN"$> "END);
+			ft_dprintf(1, CYAN"%s => "END, dir);
 			get_next_line(STDERR_FILENO, &line);
 			if (line != NULL && ft_strlen(line) > 0)
 				if (built_in(line, &ctrl, env) == EXIT_SUCCESS)

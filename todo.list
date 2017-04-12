@@ -7,9 +7,16 @@ bareme :
 
 TODO:
 
-gerer setenv si la variable existe deja
 
 Probleme :
 
 cd sur un lien Ex : cd /tmp
 
+
+
+
+bonus :
+
+built-in pwd
+cd ~
+remplacement de variable d'environement si elle existe 
