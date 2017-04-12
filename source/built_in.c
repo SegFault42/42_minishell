@@ -43,9 +43,8 @@ static	char	*check_path_env(char *cmd, char **env)
 {
 	char	**split;
 	size_t	i;
-	size_t	len;
 	char	*path;
-	int		ret;
+	size_t	ret;
 
 	i = 0;
 	ret = 0;
@@ -76,7 +75,7 @@ static	char	*check_path_env(char *cmd, char **env)
 	return (NULL);
 }
 
-static void	execute(t_ctrl *ctrl, char **env, char *trim)
+static void	execute(char **env, char *trim)
 {
 	pid_t	father;
 	char	**split;
@@ -141,7 +140,7 @@ bool	built_in(char *line, t_ctrl *ctrl, char **env)
 	else if (ft_strcmp("unsetenv", split[0]) == 0)
 		built_in_unsetenv(trim, ctrl);
 	else
-		execute(ctrl, env, trim);
+		execute(env, trim);
 	ft_2d_tab_free(split);
 	ft_strdel(&trim);
 	return (EXIT_FAILURE);

@@ -66,6 +66,7 @@ int	main(int argc, char **argv, char **environ)
 			free(env);
 		}
 	}
+	free(env);
 	quit(&ctrl);
 	return (0);
 }
