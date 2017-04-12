@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **environ)
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
 	create_env(&ctrl, environ);
+	lst_to_2d_tab(&ctrl, environ);
 	if (argc != 1)
 	{
 		ft_dprintf(2, "Too many arguments");

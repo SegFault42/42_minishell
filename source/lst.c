@@ -91,3 +91,18 @@ void	print_lst(t_ctrl *ctrl)
 		tmp = tmp->next;
 	}
 }
+
+size_t	count_nb_node(t_ctrl *ctrl)
+{
+	size_t	i;
+	t_environ	*tmp;
+
+	i = 0;
+	tmp = ctrl->first;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}

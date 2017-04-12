@@ -92,7 +92,8 @@ char	*get_path(char *line)
 		++i;
 	while (line[i] == ' ' || line[i] == '\t')
 		++i;
-	split = ft_strsplit(&line[i], ' ');
+	if ((split = ft_strsplit(&line[i], ' ')) == NULL)
+		ft_critical_error(MALLOC_ERROR);
 	if (ft_count_2d_tab(split) > 1)
 	{
 		ft_dprintf(2, RED"cd: too many arguments\n"END);

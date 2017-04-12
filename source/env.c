@@ -12,6 +12,31 @@
 
 #include "../include/minishell.h"
 
+char	**lst_to_2d_tab(t_ctrl *ctrl, char **tab)
+{
+	size_t		i;
+	char		**environ;
+	size_t		len_lst;
+	t_environ	*tmp;
+
+	i = 0;
+	tmp = ctrl->first;
+	len_lst = count_nb_node(ctrl);
+	environ = NULL;
+	if (len_lst > 0)
+	{
+		if ((environ = (char **)ft_memalloc(sizeof(char *) * len_lst + 1)) == NULL)
+			ft_critical_error(MALLOC_ERROR);
+		while (tmp)
+		{
+			environ[i] = tmp->env;
+			tmp = tmp->next;
+			++i;
+		}
+	}
+	return (environ);
+}
+
 void	create_env(t_ctrl *ctrl, char **environ)
 {
 	int	i;
@@ -41,12 +66,14 @@ void	built_in_unsetenv(char *cmd, t_ctrl *ctrl)
 
 	i = 1;
 	tmp = ctrl->first;
-	split = ft_strsplit_blank(cmd);
+	if ((split = ft_strsplit_blank(cmd)) == NULL)
+		ft_critical_error(MALLOC_ERROR);
 	if (ft_count_2d_tab(split) > 1)
 	{
 		while (tmp)
 		{
-			split_env = ft_strsplit(tmp->env, '=');
+			if ((split_env = ft_strsplit(tmp->env, '=')) == NULL)
+				ft_critical_error(MALLOC_ERROR);
 			if (ft_strcmp(split[1], split_env[0]) == 0)
 			{
 				destroy_node(ctrl, i);
@@ -79,7 +106,8 @@ static bool	replace_if_var_exist(t_ctrl *ctrl, char *key, char *var)
 		if (len_tmp == len_key && ft_strncmp(tmp->env, key, len_key) == 0)
 		{
 			ft_strdel(&tmp->env);
-			tmp->env = ft_strdup(var);
+			if ((tmp->env = ft_strdup(var)) == NULL)
+				ft_critical_error(MALLOC_ERROR);
 			return (true);
 		}
 		tmp = tmp->next;
@@ -101,7 +129,8 @@ void	built_in_setenv(char *cmd, t_ctrl *ctrl)
 		ft_dprintf(2, RED"No space allowed. Usage : setenv foo=bar\n"END);
 	else
 	{
-		split = ft_strsplit(&cmd[i], '=');
+		if ((split = ft_strsplit(&cmd[i], '=')) == NULL)
+			ft_critical_error(MALLOC_ERROR);
 		if (ft_count_2d_tab(split) == 2 && ft_str_isalpha(split[0]) == true)
 		{
 			if (replace_if_var_exist(ctrl, split[0], &cmd[i]) == false)
