@@ -76,3 +76,17 @@ char			**ft_strsplit_blank(char const *s)
 	return (str);
 }
 
+/*int	main()*/
+/*{*/
+	/*char *str = "/bin/ls -la";*/
+	/*char **lol;*/
+	/*int i = 0;*/
+
+	/*lol = ft_strsplit_blank(str);*/
+	/*while(lol[i])*/
+	/*{*/
+		/*ft_dprintf(1, "%s\n", lol[i]);*/
+		/*++i;*/
+	/*}*/
+	/*ft_dprintf(1, "%s\n", lol[i]);*/
+/*}*/

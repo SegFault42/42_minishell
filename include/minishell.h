@@ -16,6 +16,9 @@
 # include "../libft/includes/libft.h"
 # include <sys/stat.h>
 # include <signal.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <errno.h>
 
 # define PATH_LENGHT 1024
 
@@ -36,7 +39,7 @@ typedef struct			s_ctrl
 /*
 **===================================built_in.c================================
 */
-bool				built_in(char *line, t_ctrl *ctrl);
+bool				built_in(char *line, t_ctrl *ctrl, char **envrion);
 /*
 **==============================built_in_get_path.c============================
 */

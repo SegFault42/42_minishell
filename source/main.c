@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **environ)
 {
 	char	*line;
 	t_ctrl	ctrl;
+	char	**env;
 
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
@@ -50,15 +51,17 @@ int	main(int argc, char **argv, char **environ)
 	{
 		while (0xDEADBEEF)
 		{
+			env = lst_to_2d_tab(&ctrl, environ);
 			ft_dprintf(1, CYAN"$> "END);
 			get_next_line(STDERR_FILENO, &line);
 			if (line != NULL && ft_strlen(line) > 0)
-				if (built_in(line, &ctrl) == EXIT_SUCCESS)
+				if (built_in(line, &ctrl, env) == EXIT_SUCCESS)
 				{
 					ft_strdel(&line);
 					break ;
 				}
 			ft_strdel(&line);
+			free(env);
 		}
 	}
 	quit(&ctrl);

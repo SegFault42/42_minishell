@@ -123,5 +123,6 @@ void				ft_strxcat(char *dest, char *src, int x);
 bool				ft_str_isalpha(char *str);
 bool				ft_str_isspace(char *str);
 char				**ft_strsplit_blank(char const *s);
+void				ft_print_2d_tab_no_nl(char **tab);
 
 #endif

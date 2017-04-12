@@ -25,7 +25,8 @@ char	**lst_to_2d_tab(t_ctrl *ctrl, char **tab)
 	environ = NULL;
 	if (len_lst > 0)
 	{
-		if ((environ = (char **)ft_memalloc(sizeof(char *) * len_lst + 1)) == NULL)
+		if ((environ = (char **)ft_memalloc(sizeof(char *) * len_lst + 1)) ==
+		NULL)
 			ft_critical_error(MALLOC_ERROR);
 		while (tmp)
 		{
@@ -33,6 +34,7 @@ char	**lst_to_2d_tab(t_ctrl *ctrl, char **tab)
 			tmp = tmp->next;
 			++i;
 		}
+		environ[i] = NULL;
 	}
 	return (environ);
 }
