@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	**lst_to_2d_tab(t_ctrl *ctrl, char **tab)
+char	**lst_to_2d_tab(t_ctrl *ctrl)
 {
 	size_t		i;
 	char		**environ;

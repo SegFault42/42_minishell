@@ -55,6 +55,6 @@ void	built_in_unsetenv(char *cmd, t_ctrl *ctrl);
 void	destroy_node(t_ctrl *ctrl, size_t i);
 void	create_env(t_ctrl *ctrl, char **envrion);
 size_t	count_nb_node(t_ctrl *ctrl);
-char	**lst_to_2d_tab(t_ctrl *ctrl, char **environ);
+char	**lst_to_2d_tab(t_ctrl *ctrl);
 
 #endif

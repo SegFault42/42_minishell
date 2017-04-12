@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **environ)
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
 	create_env(&ctrl, environ);
-	lst_to_2d_tab(&ctrl, environ);
+	/*lst_to_2d_tab(&ctrl);*/
 	if (argc != 1)
 	{
 		ft_dprintf(2, "Too many arguments");
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **environ)
 		while (0xDEADBEEF)
 		{
 			getcwd(dir, PATH_LENGHT);
-			env = lst_to_2d_tab(&ctrl, environ);
+			env = lst_to_2d_tab(&ctrl);
 			ft_dprintf(1, CYAN"%s => "END, dir);
 			get_next_line(STDERR_FILENO, &line);
 			if (line != NULL && ft_strlen(line) > 0)
