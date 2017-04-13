@@ -87,7 +87,7 @@ void	print_lst(t_ctrl *ctrl)
 	tmp = ctrl->first;
 	while (tmp)
 	{
-		ft_dprintf(1, PURPLE"%s\n"END, tmp->env);
+		ft_dprintf(1, "%s\n", tmp->env);
 		tmp = tmp->next;
 	}
 }

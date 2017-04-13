@@ -140,7 +140,6 @@ bool	built_in(char *line, t_ctrl *ctrl, char **env)
 		if (trim[0] == '\0')
 		{
 			ft_strdel(&trim);
-			ft_2d_tab_free(split);
 			ft_2d_tab_free(multi_cmd);
 			return (EXIT_FAILURE);
 		}
