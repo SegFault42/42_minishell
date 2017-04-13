@@ -41,38 +41,36 @@ static void	built_in_cd(char *line, t_ctrl *ctrl)
 
 static	char	*check_path_env(char *cmd, char **env)
 {
+	int		i;
+	char	path[PATH_LENGHT];
 	char	**split;
-	size_t	i;
-	char	*path;
-	size_t	ret;
+	char	*concat;
 
 	i = 0;
-	ret = 0;
-	while (env[i] && (ret = ft_strncmp("PATH=", env[i], ft_strclen(env[i], '=')) != 0))
+	ft_memset(&path, 0, sizeof(char) * PATH_LENGHT);
+	concat = NULL;
+	while (env[i])
+	{
+		if (ft_strncmp("PATH=", env[i], 5) == 0)
+			break ;
 		++i;
-	if (ret != 0)
-		return (NULL);
-	path = (char *)ft_memalloc(sizeof(char) * ft_strlen(env[i]));
-	split = ft_strsplit(env[i], ':');
-	if (path == NULL || split == NULL)
-		ft_critical_error(MALLOC_ERROR);
+	}
+	ft_strcat(path, &env[i][5]);
+	split = ft_strsplit(path, ':');
 	i = 0;
 	while (split[i])
 	{
-		ret = ft_strclen(split[i], '/');
-		ft_strcpy(path, &split[i][ret]);
-		ft_strcat(path, "/");
-		ft_strcat(path, cmd);
-		if (access(path, X_OK) == 0)
-		{
-			ft_2d_tab_free(split);
-			return (path);
-		}
+		concat = (char *)ft_memalloc(sizeof(char) * (ft_strlen(split[i]) + ft_strlen(cmd)) + 2);
+		ft_strcat(concat, split[i]);
+		ft_strcat(concat, "/");
+		ft_strcat(concat, cmd);
+		if (access(concat, F_OK) == 0)
+			break ;
+		ft_strdel(&concat);
 		++i;
 	}
 	ft_2d_tab_free(split);
-	ft_strdel(&path);
-	return (NULL);
+	return (concat);
 }
 
 static void	execute(char **env, char *trim)
@@ -84,9 +82,15 @@ static void	execute(char **env, char *trim)
 
 	if ((split = ft_strsplit_blank(trim)) == NULL)
 		ft_critical_error(MALLOC_ERROR);
-	if ((path = check_path_env(split[0], env)) != NULL)
-		ft_strcpy(split[0], path);
-	ft_strdel(&path);
+	if (trim[0] != '/')
+	{
+		if ((path = check_path_env(split[0], env)) != NULL)
+		{
+			ft_strdel(&split[0]);
+			split[0] = ft_strdup(path);
+			ft_strdel(&path);
+		}
+	}
 	if (access(split[0], X_OK) == 0)
 	{
 		father = fork();
@@ -100,7 +104,7 @@ static void	execute(char **env, char *trim)
 		else
 		{
 			if (execve(split[0], &split[0], env) < 0)
-				ft_dprintf(1, "Error !\n");
+				ft_dprintf(1, RED"Error !\n"END);
 			exit(EXIT_FAILURE);
 		}
 	}

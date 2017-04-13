@@ -51,6 +51,7 @@ SRC = ./ft_dprintf/sources/ft_dprintf.c\
 	  ./ft_strncmp.c\
 	  ./ft_strtrim.c\
 	  ./ft_strcpy.c\
+	  ./ft_memcpy.c\
 	  ./ft_memset.c\
 	  ./ft_strcat.c\
 	  ./ft_strcmp.c\

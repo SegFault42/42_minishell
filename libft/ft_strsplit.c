@@ -1,72 +1,76 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/11 13:39:24 by rabougue          #+#    #+#             */
-/*   Updated: 2016/08/06 22:09:36 by rabougue         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "./includes/libft.h"
 
-static void	ft_split_count(char const *s, char c, int *j)
+static int	find_words_nb(char const *s, char c)
 {
-	int i;
+	int	words;
 
-	i = 0;
-	while (s[i] != '\0')
+	words= 0;
+	if (!s[0])
+		return (0);
+	while (*s)
 	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != c && s[i] != '\0')
+		if (*s != c)
 		{
-			*j = *j + 1;
-			while (s[i] != c && s[i] != '\0')
-				i++;
+			words++;
+			while (*s != c && *s)
+				s++;
 		}
+		else
+			s++;
 	}
+	return (words);
 }
 
-static void	ft_split_tab(char const *s, char **str, char c, int *j)
+static char	*str_maker(char const *s, char c, int *i)
 {
-	int len;
-	int i;
+	int		size;
+	int		j;
+	char	*str;
 
-	i = 0;
-	while (s[i] != '\0')
+	size = 0;
+	j = *i;
+	while (s[*i] != '\0' && s[*i] != c)
 	{
-		len = 0;
-		while (s[i] == c)
-			i++;
-		if (s[i] != c && s[i] != '\0')
-		{
-			while (s[i + len] != c && s[i + len] != '\0')
-				len++;
-			str[*j] = ft_strsub(s, i, len);
-			*j = *j + 1;
-		}
-		i = i + len;
+		size++;
+		*i += 1;
 	}
-	str[*j] = NULL;
+	*i = j;
+	j = 0;
+	str = (char*)malloc(sizeof(char) * (size + 1));
+	if (!str)
+		return (NULL);
+	while (s[*i] != '\0' && s[*i] != c)
+	{
+		str[j] = s[*i];
+		*i += 1;
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**str;
+	int		i;
 	int		j;
+	int		words;
+	char	**tab;
 
-	j = 1;
-	if (s == NULL)
+	i = 0;
+	j = 0;
+	if (!s)
 		return (NULL);
-	ft_split_count(s, c, &j);
-	str = (char **)malloc(sizeof(char *) * j);
-	if (str != NULL)
+	words = find_words_nb(s, c);
+	tab = (char**)malloc(sizeof(char*) * (words + 1));
+	if (!tab)
+		return (NULL);
+	while (words--)
 	{
-		j = 0;
-		ft_split_tab(s, str, c, &j);
+		while (s[i] == c)
+			i++;
+		tab[j] = str_maker(s, c, &i);
+		j++;
 	}
-	return (str);
+	tab[j] = NULL;
+	return (tab);
 }

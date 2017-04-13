@@ -17,19 +17,27 @@ static void	quit(t_ctrl *ctrl)
 	t_environ	*tmp;
 
 	tmp = ctrl->first;
-	while (ctrl->first->next)
-	{
-		while (tmp->next->next)
-			tmp = tmp->next;
-		/*ft_dprintf(1, "%s\n", tmp->next->env);*/
-		ft_strdel(&tmp->next->env);
-		free(tmp->next);
-		tmp->next = NULL;
-		tmp = ctrl->first;
-	}
+	if (ctrl->first != NULL)
+		while (ctrl->first->next)
+		{
+			while (tmp->next->next)
+				tmp = tmp->next;
+			/*ft_dprintf(1, "%s\n", tmp->next->env);*/
+			ft_strdel(&tmp->next->env);
+			free(tmp->next);
+			tmp->next = NULL;
+			tmp = ctrl->first;
+		}
 	ft_strdel(&tmp->env);
-	free(tmp);
 	tmp = NULL;
+}
+
+void prompt()
+{
+	char	path[PATH_LENGHT];
+
+	getcwd(path, PATH_LENGHT);
+	ft_dprintf(1, CYAN"\n%s => "END, path);
 }
 
 int	main(int argc, char **argv, char **environ)
@@ -42,7 +50,6 @@ int	main(int argc, char **argv, char **environ)
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
 	create_env(&ctrl, environ);
-	/*lst_to_2d_tab(&ctrl);*/
 	if (argc != 1)
 	{
 		ft_dprintf(2, "Too many arguments");
@@ -54,19 +61,22 @@ int	main(int argc, char **argv, char **environ)
 		{
 			getcwd(dir, PATH_LENGHT);
 			env = lst_to_2d_tab(&ctrl);
-			ft_dprintf(1, CYAN"%s => "END, dir);
+			signal(SIGINT, prompt);
+				ft_dprintf(1, CYAN"%s => "END, dir);
 			get_next_line(STDERR_FILENO, &line);
 			if (line != NULL && ft_strlen(line) > 0)
+			{
 				if (built_in(line, &ctrl, env) == EXIT_SUCCESS)
 				{
 					ft_strdel(&line);
+					free(env);
 					break ;
 				}
+			}
 			ft_strdel(&line);
 			free(env);
 		}
 	}
-	free(env);
 	quit(&ctrl);
 	return (0);
 }
