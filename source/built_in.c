@@ -55,6 +55,11 @@ static	char	*check_path_env(char *cmd, char **env)
 			break ;
 		++i;
 	}
+	if (env[i] == NULL)
+	{
+		ft_dprintf(2, RED"PATH variable not set in environment\n"END);
+		return (NULL);
+	}
 	ft_strcat(path, &env[i][5]);
 	split = ft_strsplit(path, ':');
 	i = 0;
@@ -90,6 +95,11 @@ static void	execute(char **env, char *trim)
 			split[0] = ft_strdup(path);
 			ft_strdel(&path);
 		}
+		else
+		{
+			ft_2d_tab_free(split);
+			return ;
+		}
 	}
 	if (access(split[0], X_OK) == 0)
 	{
@@ -117,35 +127,50 @@ bool	built_in(char *line, t_ctrl *ctrl, char **env)
 {
 	char	*trim;
 	char	**split;
+	char	**multi_cmd;
+	int		i;
 
-	if ((trim = ft_strtrim(line)) == NULL)
-		ft_critical_error(MALLOC_ERROR);
-	if (trim[0] == '\0')
+	i = 0;
+	split = NULL;
+	multi_cmd = ft_strsplit(line, ';');
+	while (multi_cmd[i])
 	{
-		ft_strdel(&trim);
-		return (EXIT_FAILURE);
-	}
-	if ((split = ft_strsplit_blank(trim)) == NULL)
-		ft_critical_error(MALLOC_ERROR);
-	if (ft_strcmp("exit", split[0]) == 0)
-	{
+		if ((trim = ft_strtrim(multi_cmd[i])) == NULL)
+			ft_critical_error(MALLOC_ERROR);
+		if (trim[0] == '\0')
+		{
+			ft_strdel(&trim);
+			ft_2d_tab_free(split);
+			ft_2d_tab_free(multi_cmd);
+			return (EXIT_FAILURE);
+		}
+		if ((split = ft_strsplit_blank(trim)) == NULL)
+			ft_critical_error(MALLOC_ERROR);
+		if (ft_strcmp("exit", split[0]) == 0)
+		{
+			ft_strdel(&trim);
+			ft_2d_tab_free(split);
+			ft_2d_tab_free(multi_cmd);
+			return (EXIT_SUCCESS);
+		}
+		else if (ft_strcmp("echo", split[0]) == 0)
+			built_in_echo(trim);
+		else if (ft_strcmp("cd", split[0]) == 0)
+			built_in_cd(trim, ctrl);
+		else if (ft_strcmp("env", split[0]) == 0)
+			print_lst(ctrl);
+		else if (ft_strcmp("setenv", split[0]) == 0)
+			built_in_setenv(trim, ctrl);
+		else if (ft_strcmp("unsetenv", split[0]) == 0)
+			built_in_unsetenv(trim, ctrl);
+		else if (env != NULL)
+			execute(env, trim);
+		else
+			ft_dprintf(2, RED"PATH variable not set in environment\n"END);
 		ft_strdel(&trim);
 		ft_2d_tab_free(split);
-		return (EXIT_SUCCESS);
+		++i;
 	}
-	else if (ft_strcmp("echo", split[0]) == 0)
-		built_in_echo(trim);
-	else if (ft_strcmp("cd", split[0]) == 0)
-		built_in_cd(trim, ctrl);
-	else if (ft_strcmp("env", split[0]) == 0)
-		print_lst(ctrl);
-	else if (ft_strcmp("setenv", split[0]) == 0)
-		built_in_setenv(trim, ctrl);
-	else if (ft_strcmp("unsetenv", split[0]) == 0)
-		built_in_unsetenv(trim, ctrl);
-	else
-		execute(env, trim);
-	ft_2d_tab_free(split);
-	ft_strdel(&trim);
+	ft_2d_tab_free(multi_cmd);
 	return (EXIT_FAILURE);
 }

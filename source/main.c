@@ -22,13 +22,13 @@ static void	quit(t_ctrl *ctrl)
 		{
 			while (tmp->next->next)
 				tmp = tmp->next;
-			/*ft_dprintf(1, "%s\n", tmp->next->env);*/
 			ft_strdel(&tmp->next->env);
 			free(tmp->next);
 			tmp->next = NULL;
 			tmp = ctrl->first;
 		}
 	ft_strdel(&tmp->env);
+	free(tmp);
 	tmp = NULL;
 }
 
