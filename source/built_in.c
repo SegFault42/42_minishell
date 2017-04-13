@@ -69,10 +69,13 @@ static	char	*check_path_env(char *cmd, char **env)
 		ft_strcat(concat, split[i]);
 		ft_strcat(concat, "/");
 		ft_strcat(concat, cmd);
+		ft_dprintf(1, "%s\n", concat);
 		if (access(concat, F_OK) == 0)
 			break ;
 		ft_strdel(&concat);
 		++i;
+		if (split[i] == NULL)
+			ft_dprintf(2, RED"%s: Command not found !\n"END, cmd);
 	}
 	ft_2d_tab_free(split);
 	return (concat);
@@ -87,7 +90,7 @@ static void	execute(char **env, char *trim)
 
 	if ((split = ft_strsplit_blank(trim)) == NULL)
 		ft_critical_error(MALLOC_ERROR);
-	if (trim[0] != '/')
+	if (trim[0] != '/' && trim[0] != '.')
 	{
 		if ((path = check_path_env(split[0], env)) != NULL)
 		{
@@ -119,7 +122,7 @@ static void	execute(char **env, char *trim)
 		}
 	}
 	else
-		ft_dprintf(2, RED"%s: Command not found !\n"END, split[0]);
+		ft_dprintf(2, RED"Permission denied !\n"END);
 	ft_2d_tab_free(split);
 }
 

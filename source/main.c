@@ -32,7 +32,7 @@ static void	quit(t_ctrl *ctrl)
 	tmp = NULL;
 }
 
-void prompt()
+static void	prompt()
 {
 	char	path[PATH_LENGHT];
 
