@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <errno.h>
+# include <time.h>
 
 # define PATH_LENGHT 1024
 

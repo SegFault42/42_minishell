@@ -40,6 +40,17 @@ static void	prompt()
 	ft_dprintf(1, CYAN"\n%s => "END, path);
 }
 
+void	write_history(char *line)
+{
+	int	fd;
+
+	if ((fd = (open("/Users/rabougue/.minishell_history", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR))) > 0)
+	{
+		ft_dprintf(fd, "%d : %s\n", time(0), line);
+		close(fd);
+	}
+}
+
 int	main(int argc, char **argv, char **environ)
 {
 	char	*line;
@@ -47,6 +58,7 @@ int	main(int argc, char **argv, char **environ)
 	char	**env;
 	char	dir[PATH_LENGHT];
 
+			signal(SIGINT, prompt);
 	line = NULL;
 	ft_memset(&ctrl, 0, sizeof(t_ctrl));
 	create_env(&ctrl, environ);
@@ -61,18 +73,19 @@ int	main(int argc, char **argv, char **environ)
 		{
 			getcwd(dir, PATH_LENGHT);
 			env = lst_to_2d_tab(&ctrl);
-			signal(SIGINT, prompt);
-				ft_dprintf(1, CYAN"%s => "END, dir);
+			ft_dprintf(1, CYAN"%s => "END, dir);
 			get_next_line(STDERR_FILENO, &line);
 			if (line != NULL && ft_strlen(line) > 0)
 			{
 				if (built_in(line, &ctrl, env) == EXIT_SUCCESS)
 				{
+					write_history("exit");
 					ft_strdel(&line);
 					free(env);
 					break ;
 				}
 			}
+			write_history(line);
 			ft_strdel(&line);
 			free(env);
 		}

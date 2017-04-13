@@ -20,3 +20,4 @@ bonus :
 built-in pwd
 cd ~
 remplacement de variable d'environement si elle existe 
+.minishell_history

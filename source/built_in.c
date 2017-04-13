@@ -69,7 +69,6 @@ static	char	*check_path_env(char *cmd, char **env)
 		ft_strcat(concat, split[i]);
 		ft_strcat(concat, "/");
 		ft_strcat(concat, cmd);
-		ft_dprintf(1, "%s\n", concat);
 		if (access(concat, F_OK) == 0)
 			break ;
 		ft_strdel(&concat);
