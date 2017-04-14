@@ -41,6 +41,8 @@ typedef struct			s_ctrl
 **===================================built_in.c================================
 */
 bool				built_in(char *line, t_ctrl *ctrl, char **envrion);
+void				built_in_cd(char *line, t_ctrl *ctrl);
+void				built_in_echo(char *line);
 /*
 **==============================built_in_get_path.c============================
 */
@@ -49,6 +51,16 @@ void				change_path(char *new_dir, t_ctrl *ctrl);
 /*
 **===================================env.c=====================================
 */
+/*
+**=================================tools.c=====================================
+*/
+void				write_history(char *line);
+bool				quit_shell(char **line, char ***env, t_ctrl *ctrl);
+void				prompt(void);
+void				quit(t_ctrl *ctrl);
+
+
+
 void	add_tail(t_ctrl *ctrl, char *str);
 void	print_lst(t_ctrl *ctrl);
 void	built_in_setenv(char *cmd, t_ctrl *ctrl);

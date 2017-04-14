@@ -20,7 +20,6 @@ static void	relative_path(char *new_dir)
 	getcwd(current_dir, PATH_LENGHT);
 	ft_strcat(current_dir, "/");
 	ft_strcat(current_dir, new_dir);
-
 	if (chdir(current_dir) < 0)
 		ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, new_dir);
 }
@@ -54,6 +53,24 @@ static void	home_path(t_ctrl *ctrl)
 		ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, tmp->env);
 }
 
+static void	split_change_path(size_t l, char **new_dir, char *old_dir, char *t)
+{
+	static char	current_dir[PATH_LENGHT] = {0};
+
+	if (l == 1 && *new_dir[0] == '-')
+	{
+		if (chdir(t) < 0)
+			ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, t);
+		ft_strcpy(t, old_dir);
+	}
+	else
+	{
+		getcwd(current_dir, PATH_LENGHT);
+		relative_path(*new_dir);
+		ft_strcpy(t, old_dir);
+	}
+}
+
 void	change_path(char *new_dir, t_ctrl *ctrl)
 {
 	size_t		len_new_dir;
@@ -77,18 +94,8 @@ void	change_path(char *new_dir, t_ctrl *ctrl)
 		absolute_path(new_dir);
 		ft_strcpy(tmp, old_dir);
 	}
-	else if (len_new_dir == 1 && new_dir[0] == '-')
-	{
-		if (chdir(tmp) < 0)
-			ft_dprintf(2, RED"cd: no such file or directory: %s\n"END, tmp);
-		ft_strcpy(tmp, old_dir);
-	}
 	else
-	{
-		getcwd(current_dir, PATH_LENGHT);
-		relative_path(new_dir);
-		ft_strcpy(tmp, old_dir);
-	}
+		split_change_path(len_new_dir, &new_dir, old_dir, tmp);
 }
 
 char	*get_path(char *line)

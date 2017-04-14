@@ -63,7 +63,7 @@ void	built_in_unsetenv(char *cmd, t_ctrl *ctrl)
 {
 	t_environ	*tmp;
 	char		**split;
-	char		**split_env;
+	char		**split_env = NULL;
 	size_t		i;
 
 	i = 1;
@@ -71,24 +71,20 @@ void	built_in_unsetenv(char *cmd, t_ctrl *ctrl)
 	if ((split = ft_strsplit_blank(cmd)) == NULL)
 		ft_critical_error(MALLOC_ERROR);
 	if (ft_count_2d_tab(split) > 1)
-	{
 		while (tmp)
 		{
 			if ((split_env = ft_strsplit(tmp->env, '=')) == NULL)
 				ft_critical_error(MALLOC_ERROR);
 			if (ft_strcmp(split[1], split_env[0]) == 0)
-			{
-				destroy_node(ctrl, i);
-				ft_2d_tab_free(split_env);
 				break ;
-			}
 			ft_2d_tab_free(split_env);
 			tmp = tmp->next;
 			++i;
 			if (tmp == NULL)
-				ft_dprintf(1, RED"Environement variable not exist\n"END);
+				ft_dprintf(2, RED"Environement variable not exist\n"END);
 		}
-	}
+	destroy_node(ctrl, i);
+	ft_2d_tab_free(split_env);
 	ft_2d_tab_free(split);
 }
 

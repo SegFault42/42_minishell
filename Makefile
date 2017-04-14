@@ -26,6 +26,7 @@ SRCS =	./source/main.c\
 		./source/built_in_cd.c\
 		./source/env.c\
 		./source/lst.c\
+		./source/tools.c\
 
 OBJS = $(SRCS:.c=.o)
 
