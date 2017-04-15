@@ -102,7 +102,7 @@ static char	**prepare_execution(char *trim, char **env)
 		ft_critical_error(MALLOC_ERROR);
 	if (trim[0] != '/' && trim[0] != '.')
 	{
-		if ((path = check_path_env(split[0], env)) != NULL)
+		if (env != NULL && (path = check_path_env(split[0], env)) != NULL)
 		{
 			ft_strdel(&split[0]);
 			if ((split[0] = ft_strdup(path)) == NULL)
@@ -179,10 +179,10 @@ static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
 		built_in_setenv(*trim, ctrl);
 	else if (ft_strcmp("unsetenv", split[0]) == 0)
 		built_in_unsetenv(*trim, ctrl);
-	else if (*env != NULL)
+	else/* if (*env != NULL)*/
 		execute(*env, *trim);
-	else
-		ft_dprintf(2, RED"PATH variable not set in environment\n"END);
+	/*else*/
+		/*ft_dprintf(2, RED"PATH variable not set in environment\n"END);*/
 	ft_2d_tab_free(split);
 	return (EXIT_FAILURE);
 }

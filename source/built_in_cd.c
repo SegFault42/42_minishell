@@ -37,14 +37,14 @@ static void	home_path(t_ctrl *ctrl)
 	tmp = ctrl->first;
 	if (tmp == NULL)
 	{
-		ft_dprintf(2, RED"HOME not set\n"END);
+		ft_dprintf(2, RED"HOME variable not set in environment\n"END);
 		return ;
 	}
 	while (ft_strncmp(tmp->env, "HOME", 4) != 0)
 	{
 		if (tmp->next == NULL)
 		{
-			ft_dprintf(2, RED"HOME not set\n"END);
+			ft_dprintf(2, RED"HOME variable not set in environment\n"END);
 			return ;
 		}
 		tmp = tmp->next;
