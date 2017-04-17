@@ -58,8 +58,19 @@ void				write_history(char *line);
 bool				quit_shell(char **line, char ***env, t_ctrl *ctrl);
 void				prompt(void);
 void				quit(t_ctrl *ctrl);
-
-
+char				*get_path(char *line);
+/*
+**=================================execute.c===================================
+*/
+void				execute(char **env, char *trim);
+/*
+**=================================unsetenv.c==================================
+*/
+void				built_in_unsetenv(char *cmd, t_ctrl *ctrl);
+/*
+**====================================lst_2.c==================================
+*/
+void				destroy_node(t_ctrl *ctrl, size_t i);
 
 void	add_tail(t_ctrl *ctrl, char *str);
 void	print_lst(t_ctrl *ctrl);

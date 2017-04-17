@@ -71,7 +71,7 @@ static void	split_change_path(size_t l, char **new_dir, char *old_dir, char *t)
 	}
 }
 
-void	change_path(char *new_dir, t_ctrl *ctrl)
+void		change_path(char *new_dir, t_ctrl *ctrl)
 {
 	size_t		len_new_dir;
 	static char	current_dir[PATH_LENGHT] = {0};
@@ -98,24 +98,3 @@ void	change_path(char *new_dir, t_ctrl *ctrl)
 		split_change_path(len_new_dir, &new_dir, old_dir, tmp);
 }
 
-char	*get_path(char *line)
-{
-	size_t	i;
-	char	**split;
-
-	i = 0;
-	while (line[i] && line[i] != ' ' && line[i] != '\t')
-		++i;
-	while (line[i] == ' ' || line[i] == '\t')
-		++i;
-	if ((split = ft_strsplit(&line[i], ' ')) == NULL)
-		ft_critical_error(MALLOC_ERROR);
-	if (ft_count_2d_tab(split) > 1)
-	{
-		ft_dprintf(2, RED"cd: too many arguments\n"END);
-		ft_2d_tab_free(split);
-		return (NULL);
-	}
-	ft_2d_tab_free(split);
-	return (&line[i]);
-}

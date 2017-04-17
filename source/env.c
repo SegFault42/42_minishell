@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	**lst_to_2d_tab(t_ctrl *ctrl)
+char		**lst_to_2d_tab(t_ctrl *ctrl)
 {
 	size_t		i;
 	char		**environ;
@@ -39,7 +39,7 @@ char	**lst_to_2d_tab(t_ctrl *ctrl)
 	return (environ);
 }
 
-void	create_env(t_ctrl *ctrl, char **environ)
+void		create_env(t_ctrl *ctrl, char **environ)
 {
 	int	i;
 
@@ -57,35 +57,6 @@ void	create_env(t_ctrl *ctrl, char **environ)
 		add_tail(ctrl, "PATH=/usr/bin:/bin:/usr/sbin:/sbin");
 		add_tail(ctrl, "HOME=/Users/rabougue");
 	}
-}
-
-void	built_in_unsetenv(char *cmd, t_ctrl *ctrl)
-{
-	t_environ	*tmp;
-	char		**split;
-	char		**split_env = NULL;
-	size_t		i;
-
-	i = 1;
-	tmp = ctrl->first;
-	if ((split = ft_strsplit_blank(cmd)) == NULL)
-		ft_critical_error(MALLOC_ERROR);
-	if (ft_count_2d_tab(split) > 1)
-		while (tmp)
-		{
-			if ((split_env = ft_strsplit(tmp->env, '=')) == NULL)
-				ft_critical_error(MALLOC_ERROR);
-			if (ft_strcmp(split[1], split_env[0]) == 0)
-				break ;
-			ft_2d_tab_free(split_env);
-			tmp = tmp->next;
-			++i;
-			if (tmp == NULL)
-				ft_dprintf(2, RED"Environement variable not exist\n"END);
-		}
-	destroy_node(ctrl, i);
-	ft_2d_tab_free(split_env);
-	ft_2d_tab_free(split);
 }
 
 static bool	replace_if_var_exist(t_ctrl *ctrl, char *key, char *var)
@@ -113,7 +84,7 @@ static bool	replace_if_var_exist(t_ctrl *ctrl, char *key, char *var)
 	return (false);
 }
 
-void	built_in_setenv(char *cmd, t_ctrl *ctrl)
+void		built_in_setenv(char *cmd, t_ctrl *ctrl)
 {
 	char	**split;
 	size_t	i;

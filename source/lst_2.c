@@ -12,59 +12,44 @@
 
 #include "../include/minishell.h"
 
-static t_environ	*create_maillon(void)
+static void	one_node(t_ctrl *ctrl, t_environ *tmp_rm)
 {
-	t_environ	*new;
-
-	if ((new = (t_environ *)malloc(sizeof(t_environ))) == NULL)
-		ft_critical_error(MALLOC_ERROR);
-	ft_memset(new, 0, sizeof(t_environ));
-	return (new);
-}
-
-void	add_tail(t_ctrl *ctrl, char *str)
-{
-	t_environ	*new;
-	t_environ	*tmp;
-
-	tmp = ctrl->first;
-	new = create_maillon();
-	if (ctrl->first == NULL)
-		ctrl->first = new;
+	if (ctrl->first->next != NULL)
+	{
+		ctrl->first = ctrl->first->next;
+		ft_strdel(&tmp_rm->env);
+		free(tmp_rm);
+	}
 	else
 	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		ft_strdel(&ctrl->first->env);
+		free(ctrl->first);
+		ctrl->first = NULL;
 	}
-	if ((new->env = ft_strdup(str)) == NULL)
-		ft_critical_error(MALLOC_ERROR);
-	new->next = NULL;
 }
 
-void	print_lst(t_ctrl *ctrl)
+void		destroy_node(t_ctrl *ctrl, size_t i)
 {
-	t_environ	*tmp;
+	t_environ	*tmp_rm;
+	t_ctrl		tmp_save;
+	size_t		j;
 
-	tmp = ctrl->first;
-	while (tmp)
+	j = 1;
+	tmp_rm = ctrl->first;
+	if (i > 1)
 	{
-		ft_dprintf(1, "%s\n", tmp->env);
-		tmp = tmp->next;
+		while (j < i)
+		{
+			if (j == (i -1))
+				tmp_save.first = tmp_rm;
+			tmp_rm = tmp_rm->next;;
+			++j;
+		}
+		tmp_save.first->next = tmp_rm->next;
+		ft_strdel(&tmp_rm->env);
+		free(tmp_rm);
 	}
+	else
+		one_node(ctrl, tmp_rm);
 }
 
-size_t	count_nb_node(t_ctrl *ctrl)
-{
-	size_t	i;
-	t_environ	*tmp;
-
-	i = 0;
-	tmp = ctrl->first;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
-}

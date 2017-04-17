@@ -19,8 +19,9 @@ void	ft_2d_tab_free(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		ft_strdel(&tab[i]);
 		++i;
 	}
 	free(tab);
+	tab = NULL;
 }
