@@ -42,7 +42,7 @@ typedef struct			s_ctrl
 */
 bool				built_in(char *line, t_ctrl *ctrl, char **envrion);
 void				built_in_cd(char *line, t_ctrl *ctrl);
-void				built_in_echo(char *line);
+void				built_in_echo(char *line, char **env);
 /*
 **==============================built_in_get_path.c============================
 */

@@ -12,15 +12,31 @@
 
 #include "../include/minishell.h"
 
-void		built_in_echo(char *line)
+void		built_in_echo(char *line, char **env)
 {
-	size_t	i;
+	int		j;
 	char	**split;
+	char	**split_env;
 
-	i = 0;
+	j = 0;
 	if ((split = ft_strsplit_blank(line)) == NULL)
 		ft_critical_error(MALLOC_ERROR);
-	if (ft_count_2d_tab(split) > 1)
+	if (split[1] != NULL && split[1][0] == '$')
+	{
+		while (j < ft_count_2d_tab(env))
+		{
+			split_env = ft_strsplit(env[j], '=');
+			if (ft_strcmp(split_env[0], &split[1][1]) == 0)
+			{
+				ft_dprintf(1, "%s\n", env[j]);
+				ft_2d_tab_free(split_env);
+				break ;
+			}
+			ft_2d_tab_free(split_env);
+			++j;
+		}
+	}
+	else if (ft_count_2d_tab(split) > 1)
 		ft_print_2d_tab_no_nl(&split[1]);
 	ft_2d_tab_free(split);
 }
@@ -61,7 +77,7 @@ static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
 		return (EXIT_SUCCESS);
 	}
 	else if (ft_strcmp("echo", split[0]) == 0)
-		built_in_echo(*trim);
+		built_in_echo(*trim, *env);
 	else if (ft_strcmp("cd", split[0]) == 0)
 		built_in_cd(*trim, ctrl);
 	else if (ft_strcmp("env", split[0]) == 0)
