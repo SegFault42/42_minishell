@@ -12,15 +12,10 @@
 
 #include "../include/minishell.h"
 
-static void		built_in_pwd()
-{
-	char	dir[PATH_LENGHT];
+#define CD (0)
+#define PWD (1)
 
-	getcwd(dir, PATH_LENGHT);
-	ft_dprintf(1, "%s\n", dir);
-}
-
-void		built_in_echo(char *line, char **env)
+static void		built_in_echo(char *line, char **env)
 {
 	int		j;
 	char	**split;
@@ -49,17 +44,26 @@ void		built_in_echo(char *line, char **env)
 	ft_2d_tab_free(split);
 }
 
-void		built_in_cd(char *line, t_ctrl *ctrl)
+void		built_in_cd_and_echo(char *line, t_ctrl *ctrl, uint8_t id)
 {
 	char	new_dir[ft_strlen(line)];
 	char	*ptr;
+	char	dir[PATH_LENGHT];
 
-	ptr = get_path(line);
-	if (ptr == NULL)
-		return ;
-	ft_memset(&new_dir, 0, ft_strlen(line));
-	ft_strcpy(new_dir, ptr);
-	change_path(new_dir, ctrl);
+	if (id == CD)
+	{
+		ptr = get_path(line);
+		if (ptr == NULL)
+			return ;
+		ft_memset(&new_dir, 0, ft_strlen(line));
+		ft_strcpy(new_dir, ptr);
+		change_path(new_dir, ctrl);
+	}
+	else
+	{
+		getcwd(dir, PATH_LENGHT);
+		ft_dprintf(1, "%s\n", dir);
+	}
 }
 
 static bool	check_trim(char **trim, char ***multi_cmd)
@@ -87,7 +91,7 @@ static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
 	else if (ft_strcmp("echo", split[0]) == 0)
 		built_in_echo(*trim, *env);
 	else if (ft_strcmp("cd", split[0]) == 0)
-		built_in_cd(*trim, ctrl);
+		built_in_cd_and_echo(*trim, ctrl, CD);
 	else if (ft_strcmp("env", split[0]) == 0)
 		print_lst(ctrl);
 	else if (ft_strcmp("setenv", split[0]) == 0)
@@ -95,7 +99,7 @@ static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
 	else if (ft_strcmp("unsetenv", split[0]) == 0)
 		built_in_unsetenv(*trim, ctrl);
 	else if (ft_strcmp("pwd", split[0]) == 0)
-		built_in_pwd();
+		built_in_cd_and_echo(*trim, ctrl, PWD);
 	else
 		execute(*env, *trim);
 	ft_2d_tab_free(split);

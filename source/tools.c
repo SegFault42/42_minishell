@@ -22,7 +22,7 @@ char	*get_path(char *line)
 	return (&line[i]);
 }
 
-void	quit(t_ctrl *ctrl)
+void	destroy_lst(t_ctrl *ctrl)
 {
 	t_environ	*tmp;
 
@@ -47,7 +47,7 @@ void	prompt(void)
 	char	path[PATH_LENGHT];
 
 	getcwd(path, PATH_LENGHT);
-	ft_dprintf(1, CYAN"\n%s => "END, path);
+	ft_dprintf(1, CYAN"\n{%s}=> "END, path);
 }
 
 void	write_history(char *line)
@@ -67,7 +67,7 @@ bool	quit_shell(char **line, char ***env, t_ctrl *ctrl)
 	write_history("exit");
 	ft_strdel(line);
 	free(*env);
-	quit(ctrl);
+	destroy_lst(ctrl);
 	exit(EXIT_SUCCESS);
 }
 

@@ -65,6 +65,7 @@ static char	*check_path_env(char *cmd, char **env)
 	ft_2d_tab_free(split);
 	return (concat);
 }
+
 static char	**prepare_execution(char *trim, char **env)
 {
 	char	**split;

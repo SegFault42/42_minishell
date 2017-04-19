@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **environ)
 	{
 		env = lst_to_2d_tab(&ctrl);
 		getcwd(dir, PATH_LENGHT);
-		ft_dprintf(1, CYAN"%s => "END, dir);
+		ft_dprintf(1, CYAN"{%s}=> "END, dir);
 		signal(SIGINT, (void*)prompt);
 		get_next_line(STDERR_FILENO, &line);
 		if (line != NULL && ft_strlen(line) > 0)
