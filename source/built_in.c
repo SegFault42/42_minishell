@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 06:17:58 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 05:18:48 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:45:50 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		built_in_echo(char *line, char **env)
 	ft_2d_tab_free(split);
 }
 
-void		built_in_cd_and_echo(char *line, t_ctrl *ctrl, uint8_t id)
+void			built_in_cd_and_echo(char *line, t_ctrl *ctrl, uint8_t id)
 {
 	char	new_dir[ft_strlen(line)];
 	char	*ptr;
@@ -66,7 +66,7 @@ void		built_in_cd_and_echo(char *line, t_ctrl *ctrl, uint8_t id)
 	}
 }
 
-static bool	check_trim(char **trim, char ***multi_cmd)
+static bool		check_trim(char **trim, char ***multi_cmd)
 {
 	if (*trim[0] == '\0')
 	{
@@ -77,7 +77,7 @@ static bool	check_trim(char **trim, char ***multi_cmd)
 	return (EXIT_SUCCESS);
 }
 
-static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
+static bool		if_forest(char ***env, char **trim, t_ctrl *ctrl)
 {
 	char	**split;
 
@@ -106,7 +106,7 @@ static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
 	return (EXIT_FAILURE);
 }
 
-bool		built_in(char *line, t_ctrl *ctrl, char **env)
+bool			built_in(char *line, t_ctrl *ctrl, char **env)
 {
 	char	*trim;
 	char	**multi_cmd;

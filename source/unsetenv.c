@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 03:41:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 04:15:59 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:41:24 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ void			built_in_unsetenv(char *cmd, t_ctrl *ctrl)
 {
 	t_environ	*tmp;
 	char		**split;
-	char		**split_env = NULL;
+	char		**split_env;
 	size_t		i;
 
 	i = 1;
+	split_env = NULL;
 	tmp = ctrl->first;
 	if ((split = ft_strsplit_blank(cmd)) == NULL)
 		ft_critical_error(MALLOC_ERROR);
@@ -56,4 +57,3 @@ void			built_in_unsetenv(char *cmd, t_ctrl *ctrl)
 	if (split != NULL)
 		ft_2d_tab_free(split);
 }
-

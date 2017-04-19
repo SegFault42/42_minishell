@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 03:41:00 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 04:15:59 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:44:41 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_environ	*create_maillon(void)
 	return (new);
 }
 
-void	add_tail(t_ctrl *ctrl, char *str)
+void				add_tail(t_ctrl *ctrl, char *str)
 {
 	t_environ	*new;
 	t_environ	*tmp;
@@ -42,7 +42,7 @@ void	add_tail(t_ctrl *ctrl, char *str)
 	new->next = NULL;
 }
 
-void	print_lst(t_ctrl *ctrl)
+void				print_lst(t_ctrl *ctrl)
 {
 	t_environ	*tmp;
 
@@ -54,9 +54,9 @@ void	print_lst(t_ctrl *ctrl)
 	}
 }
 
-size_t	count_nb_node(t_ctrl *ctrl)
+size_t				count_nb_node(t_ctrl *ctrl)
 {
-	size_t	i;
+	size_t		i;
 	t_environ	*tmp;
 
 	i = 0;

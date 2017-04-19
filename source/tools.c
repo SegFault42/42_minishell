@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/19 17:41:38 by rabougue          #+#    #+#             */
+/*   Updated: 2017/04/19 17:41:54 by rabougue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*get_path(char *line)
@@ -70,4 +82,3 @@ bool	quit_shell(char **line, char ***env, t_ctrl *ctrl)
 	destroy_lst(ctrl);
 	exit(EXIT_SUCCESS);
 }
-

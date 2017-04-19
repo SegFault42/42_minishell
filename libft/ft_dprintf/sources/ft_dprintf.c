@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 15:44:19 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/09 05:01:15 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:54:41 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	count_buff_size2(t_printf *print, const char *format, va_list pa)
 		++print->buff_size;
 }
 
-static void		count_buff_size(t_printf *print, const char *format, va_list pa)
+static void	count_buff_size(t_printf *print, const char *format, va_list pa)
 {
 	while (*format)
 	{
@@ -51,7 +51,7 @@ static void		count_buff_size(t_printf *print, const char *format, va_list pa)
 	}
 }
 
-static void		specifier(const char *format, va_list pa, t_printf *print)
+static void	specifier(const char *format, va_list pa, t_printf *print)
 {
 	if (*format == 'c')
 		percent_c(print, pa);
@@ -75,7 +75,7 @@ static void		specifier(const char *format, va_list pa, t_printf *print)
 	}
 }
 
-static void		write_string(t_printf *print, const char *format, va_list pa)
+static void	write_string(t_printf *print, const char *format, va_list pa)
 {
 	if ((print->buff = ft_memalloc(print->buff_size + 1)) == NULL)
 		error(MALLOC_ERROR);

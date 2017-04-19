@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/10 00:05:35 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 05:10:34 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:45:23 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,3 @@ void		change_path(char *new_dir, t_ctrl *ctrl)
 	else
 		split_change_path(len_new_dir, &new_dir, old_dir, tmp);
 }
-

@@ -6,7 +6,7 @@
 /*   By: rabougue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 06:17:58 by rabougue          #+#    #+#             */
-/*   Updated: 2017/04/10 05:18:48 by rabougue         ###   ########.fr       */
+/*   Updated: 2017/04/19 17:45:05 by rabougue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	**prepare_execution(char *trim, char **env)
 	return (split);
 }
 
-void	execute(char **env, char *trim)
+void		execute(char **env, char *trim)
 {
 	pid_t	father;
 	char	**split;
