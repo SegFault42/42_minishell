@@ -12,6 +12,14 @@
 
 #include "../include/minishell.h"
 
+static void		built_in_pwd()
+{
+	char	dir[PATH_LENGHT];
+
+	getcwd(dir, PATH_LENGHT);
+	ft_dprintf(1, "%s\n", dir);
+}
+
 void		built_in_echo(char *line, char **env)
 {
 	int		j;
@@ -86,6 +94,8 @@ static bool	if_forest(char ***env, char **trim, t_ctrl *ctrl)
 		built_in_setenv(*trim, ctrl);
 	else if (ft_strcmp("unsetenv", split[0]) == 0)
 		built_in_unsetenv(*trim, ctrl);
+	else if (ft_strcmp("pwd", split[0]) == 0)
+		built_in_pwd();
 	else
 		execute(*env, *trim);
 	ft_2d_tab_free(split);
